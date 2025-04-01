@@ -10,7 +10,7 @@ This is an implementation of a Least Recently Used (LRU) Cache in JavaScript usi
 ## Installation
 Clone the repository to your local machine:
 ```bash
-git clone https://github.com/yourusername/lru-cache.git
+git clone https://github.com/sravan-7294/lru-cache.git
 ```
 Navigate to the project folder:
 ```bash
