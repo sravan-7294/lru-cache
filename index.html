@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LRU-Cache</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        Least Recently Used (LRU) Cache – Live Visualization
+    </header>
+    <div class="container">
+        <h1 id="title">LRU Cache</h1>
+        <div id="input">
+            <div id="put">
+                <label for="key">Key:</label>
+                <input id="key" type="number" required>
+                <label for="value">Value:</label>
+                <input  id="value" type="number" required>
+                <button id="b1" onclick="put()">PUT</button>
+            </div>
+            <div id="get">
+                <label for="toGet">Retrieve Key:</label>
+                <input  id="toGet" type="number" required>
+                <button id="b2" onclick="get()">GET</button>
+            </div>
+            <p id="keyValue"></p>
+        </div>
+        <div class="cache">
+            <h2 id="heading2">Cache Visualization</h2>
+            <div id="direction">
+                <p>MOST RECENT</p>
+                <p>LEAST RECENT</p>
+            </div>
+            <ul id="list"></ul>
+        </div>
+    </div>
+    <div class="content">
+        <div id="d1">
+            <h1>What is an LRU Cache?</h1>
+            <p>An LRU (Least Recently Used) Cache is a data 
+                structure that stores a limited number of 
+                items and removes the least recently used 
+                item when the cache reaches its capacity. 
+                It optimizes performance by keeping frequently
+                 accessed data available while discarding 
+                 older, unused data.
+            </p>
+            <br>
+        </div>
+        <div id="d2">
+            <h1>How it Works?</h1>
+                <h2>PUT (Insert/Update a Key-Value Pair)</h2>
+                <ul>
+                    <li>If the key exists → Update its value and move it to the most recently used position.</li>
+                    <li>If the key is new and the cache is full → Remove the least recently used (LRU) item and insert the new key at the front.</li>
+                </ul>
+                <h2>GET (Retrieve a Value by Key)</h2>
+                <ul>
+                    <li>If the key exists → Return its value and move it to the most recently used  position.</li>
+                    <li>If the key doesn't exist → Return -1 or null</li>
+                </ul>
+                <br>
+        </div>
+        <div id="d3">
+            <h1>Implementation Using Circular Doubly Linked List (CDLL) & Hash Map</h1>
+            <h2>1. Why Use CDLL & Hash Map?</h2>
+            <ul>
+                <li>Hash Map (O(1) Lookup Time):- Stores key → node mappings for fast lookups during GET.</li>
+                <li>Circular Doubly Linked List (CDLL) (O(1) for Insertion and Deletion)</li>
+                <ul>
+                    <li>Maintains access order (MRU → LRU).</li>
+                    <li>Head points to the most recently used (MRU) item.</li>
+                    <li>Tail points to the least recently used (LRU) item.</li>
+                </ul>
+            </ul>
+            <br>
+            <h2>2. Internal Working of LRU Cache</h2>
+            <h3>GET (Retrieve a Key)</h3>
+            <ul>
+                <li>If key exists in Hash Map → Move corresponding node to the head.</li>
+                <li>If key not found → Return -1.</li>
+            </ul>
+            <h3>PUT (Insert a Key-Value Pair)</h3>
+            <ul>
+                <li>If key exists → Update value & move to head (MRU position).</li>
+                <li>If key is new and the cache is full:
+                <ul>
+                    <li>Remove the tail node (LRU item).</li>
+                    <li>Remove its reference from the Hash Map.</li>
+                    <li>Insert the new node at the head (MRU position) and update the Hash Map.</li>
+                </ul>
+                </li>
+            </ul>
+            <br>
+            <h2>3. Implementation Details</h2>
+            <h3>Data Structures:</h3>
+            <ul>
+                <li>Hash Map (JavaScript Map Object) → Stores key → node for O(1) lookups.</li>
+                <li>Circular Doubly Linked List (CDLL) → Manages access order for O(1) insertion/removal.</li>
+            </ul>
+            <h3>Key Methods in CDLL:</h3>
+            <ul>
+                <li>insertionAtBegin(key, value): Inserts a new node at the front (MRU position).</li>
+                <li>deletionAtEnd(map): Removes the least recently used (LRU) item.</li>
+                <li>bringToFront(curr): Moves an accessed node to the front.</li>
+            </ul>
+            <br>
+            <h2>4. UI Updates (updateCacheUI)</h2>
+            <ul>
+                <li>Dynamically updates the cache visual representation after each operation.</li>
+                <li>Uses HTML elements (div, li) to visually display the cache.</li>
+            </ul>
+        </div>
+    </div>
+    <script src="code.js"></script>
+</body>
+</html>
